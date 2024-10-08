@@ -27,11 +27,9 @@ async def get_users():
 @app.post('/users')
 async def create_users(users: Users):
     cursor = connection.cursor()
-    query = ("INSERT INTO usuarios (rol_id, documento_id, cedula, nombres, apellidos, correo,"
-             "contraseña, celular, estado_rg, fecha_rg) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,)")
+    query = "INSERT INTO usuarios (rol_id, documento_id, cedula, nombres, apellidos, correo, contraseña, celular, estado_rg, fecha_rg) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,)"
 
-    values = (users.rol_id, users.documento_id, users.cedula, users.nombres, users.apellidos, users.correo,
-              users.contraseña, users.celular, users.estado_rg, users.fecha_rg)
+    values = (users.rol_id, users.documento_id, users.cedula, users.nombres, users.apellidos, users.correo, users.contraseña, users.celular, users.estado_rg, users.fecha_rg)
     try:
         cursor.execute(query, values)
         connection.commit()
