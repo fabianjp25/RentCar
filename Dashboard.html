@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9eef3;
+        }
+        .sidebar {
+            background-color: #343a40;
+            height: 100vh;
+            width: 250px;
+        }
+        .sidebar .nav-link {
+            color: #ffffff;
+        }
+        .sidebar .nav-link.active {
+            background-color: #495057;
+        }
+        .dashboard-card {
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .dashboard-card:hover {
+            transform: scale(1.05);
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .card-text {
+            font-size: 2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #343a40;
+            color: rgb(66, 183, 230);
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        header {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .table-responsive { 
+            margin-top: 30px;
+        }
+        main {
+            margin-left: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="bg-light py-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-dark">RentaCar ML</h2>
+                <button class="btn btn-danger" onclick="window.location.href='login.html'">Cerrar sesión</button>
+            </div>
+        </header>
+    </div>
+
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <h4 class="text-center text-white">Menú</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#userModal">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#clientModal">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#reservationModal">Reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#paymentModal">Pagos</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-5">
+            <h1 class="h2">PANEL</h1>
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#formUsuario">Usuario</button>
+                        <button class="btn btn-secondary" data-toggle="collapse" data-target="#formCliente">Cliente</button>
+                        <button class="btn btn-success" data-toggle="collapse" data-target="#formReserva">Reserva</button>
+                        <button class="btn btn-warning" data-toggle="collapse" data-target="#formPago">Pago</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formularios colapsables -->
+            <div id="formContainer">
+                <div class="collapse" id="formUsuario" data-parent="#formContainer">
+                    <div class="card card-body">
+                        <h5 class="card-title">Formulario de Usuario</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="identificacionUsuario" class="form-label">Identificación</label>
+                                <input type="text" class="form-control" id="identificacionUsuario" placeholder="Ingrese su identificación" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombreUsuario" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombreUsuario" placeholder="Ingrese su nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellidoUsuario" class="form-label">Apellidos</label>
+                                <input type="text" class="form-control" id="apellidoUsuario" placeholder="Ingrese sus apellidos" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailUsuario" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="emailUsuario" placeholder="Ingrese su correo electrónico" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefonoUsuario" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefonoUsuario" placeholder="Ingrese su número de teléfono" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="rolUsuario" class="form-label">Rol</label>
+                                <select class="form-select" id="rolUsuario">
+                                    <option value="admin">Administrador</option>
+                                    <option value="patio">Patio</option>
+                                    <option value="contabilidad">Contabilidad</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="collapse" id="formCliente" data-parent="#formContainer">
+                    <div class="card card-body">
+                        <h5 class="card-title">Formulario de Cliente</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="identificacionCliente" class="form-label">Identificación</label>
+                                <input type="text" class="form-control" id="identificacionCliente" placeholder="Ingrese la identificación" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombreCliente" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombreCliente" placeholder="Ingrese el nombre completo del cliente" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailCliente" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="emailCliente" placeholder="Ingrese el correo electrónico" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefonoCliente" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefonoCliente" placeholder="Ingrese el número de teléfono" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="direccionCliente" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccionCliente" placeholder="Ingrese la dirección" required>
+                            </div>
+                            <button type="submit" class="btn btn-secondary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="collapse" id="formReserva" data-parent="#formContainer">
+                    <div class="card card-body">
+                        <h5 class="card-title">Formulario de Reserva</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="identificacionReserva" class="form-label">Identificación del Cliente</label>
+                                <input type="text" class="form-control" id="identificacionReserva" placeholder="Ingrese la identificación del cliente" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modeloVehiculo" class="form-label">Modelo del Vehículo</label>
+                                <input type="text" class="form-control" id="modeloVehiculo" placeholder="Ingrese el modelo del vehículo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechaReserva" class="form-label">Fecha de Reserva</label>
+                                <input type="date" class="form-control" id="fechaReserva" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="horaReserva" class="form-label">Hora de Reserva</label>
+                                <input type="time" class="form-control" id="horaReserva" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechaDevolucion" class="form-label">Fecha de Devolución</label>
+                                <input type="date" class="form-control" id="fechaDevolucion" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Reservar</button>
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="collapse" id="formPago" data-parent="#formContainer">
+                    <div class="card card-body">
+                        <h5 class="card-title">Formulario de Pago</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="identificacionPago" class="form-label">Identificación del Cliente</label>
+                                <input type="text" class="form-control" id="identificacionPago" placeholder="Ingrese la identificación del cliente" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="montoPago" class="form-label">Monto</label>
+                                <input type="number" class="form-control" id="montoPago" placeholder="Ingrese el monto a pagar" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechaPago" class="form-label">Fecha de Pago</label>
+                                <input type="date" class="form-control" id="fechaPago" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="metodoPago" class="form-label">Método de Pago</label>
+                                <select class="form-select" id="metodoPago">
+                                    <option value="tarjeta">Tarjeta de Crédito</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="transferencia">Transferencia Bancaria</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-warning">Pagar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <h2 class="mt-4">Datos Adicionales</h2>
+            <div class="table-responsive small">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Header 1</th>
+                            <th scope="col">Header 2</th>
+                            <th scope="col">Header 3</th>
+                            <th scope="col">Header 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1,001</td>
+                            <td>random</td>
+                            <td>data</td>
+                            <td>placeholder</td>
+                            <td>text</td>
+                        </tr>
+                        <tr>
+                            <td>1,002</td>
+                            <td>example</td>
+                            <td>data</td>
+                            <td>placeholder</td>
+                            <td>text</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mi Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
