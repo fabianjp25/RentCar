@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 import mysql.connector
 from core.connection import connection
-from models.users import Users
+from models.users import Users, Clients
+
 
 app = FastAPI()
 
