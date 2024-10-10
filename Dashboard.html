@@ -136,7 +136,7 @@
                                     <option value="contabilidad">Contabilidad</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
                     </div>
                 </div>
@@ -231,36 +231,22 @@
             
 
 
-            <h2 class="mt-4">Reservas</h2>
+            <h2 class="mt-4">Usuarios</h2>
             <div class="table-responsive small">
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">USUARIO</th>
-                            <th scope="col">CARRO</th>
-                            <th scope="col">FECHA RESERVA</th>
-                            <th scope="col">FECHA INICIAL</th>
-                            <th scope="col">FECHA FINAL</th>
-                            <th scope="col">VALOR</th>
-                            <th scope="col">ESTADO</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Cedula</th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Contraseña</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Estado</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1,001</td>
-                            <td>random</td>
-                            <td>data</td>
-                            <td>placeholder</td>
-                            <td>text</td>
-                        </tr>
-                        <tr>
-                            <td>1,002</td>
-                            <td>example</td>
-                            <td>data</td>
-                            <td>placeholder</td>
-                            <td>text</td>
-                        </tr>
+                    <tbody id="users">
                     </tbody>
                 </table>
             </div>
@@ -270,9 +256,25 @@
     <footer>
         <p>&copy; 2024 Mi Empresa. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function (){
+            axios({
+                method:'GET',
+                url: 'http://127.0.0.1:8000/users/get_all_users'
+            }).then(function(response){
+                const users = document.getElementById('users');
+                response.data.forEach(element => {
+                    const row = document.createElement('tr')
+                    row.innerHTML = '<td>' + element.usuario_id + '</td><td>' + element.cedula + '</td><td>' + element.nombres + '</td><td>' + element.apellidos + '</td><td>' + element.correo + '</td><td>' + element.contraseña + '</td><td>' + element.celular + '</td><td>' + element.estado_rg + '</td>'
+                    users.appendChild(row)
+                })
+                console.log(response.data)
+            });
+        }
+    </script>
 </body>
 </html>
