@@ -86,14 +86,14 @@
           <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
       
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Correo electrónico</label>
+            <input type="email" class="form-control" id="correo" placeholder="name@example.com">
+            <label for="correo">Correo electrónico</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Contraseña</label>
+            <input type="password" class="form-control" id="contraseña" placeholder="Password">
+            <label for="contraseña">Contraseña</label>
           </div>
-      
+            <div id="error" style="color: red; text-align: center;"></div>
           <div class="form-check text-start my-3">
             <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
@@ -104,14 +104,29 @@
           <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
         </form>
       </main>
-<script>
-document.getElementById('btnEntrar').addEventListener('click', function(e){
-  e.preventDefault()
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('btnEntrar').addEventListener('click', function(e){
+            e.preventDefault()
+            let correo = document.getElementById('correo').value;
+            let contraseña = document.getElementById('contraseña').value;
 
-  window.location='dashboard.html';
-})
-
-</script>
+            axios({
+                method: 'post',
+                url: 'http://127.0.0.1:8000/login',
+                data: {
+                    'correo': correo,
+                    'contraseña': contraseña
+                }
+            }).then(function (response) {
+                if (response.data.status == 'success') {
+                    window.location = 'Dashboard.html';
+                }else{
+                    alert('Error de autenticación' + response.data.message)
+                }
+            });
+        })
+    </script>
 
 </body>
 </html>

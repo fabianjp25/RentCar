@@ -10,6 +10,10 @@ class Users(BaseModel):
     contraseña: str = Field(..., max_length=50)
     celular: str = Field(..., max_length=11)
 
+class Login(BaseModel):
+    correo: str
+    contraseña: str
+
 class Clients(BaseModel):
     documento_id: int
     cedula:str = Field(..., max_length=11)

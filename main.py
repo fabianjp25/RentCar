@@ -2,8 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 from core.connection import connection
-from models.users import Users, Clients
-
+from models.users import Users, Clients, Login
 
 app = FastAPI()
 
@@ -20,6 +19,21 @@ app.add_middleware(
 def leer():
     return {"message": "Rent Car Media Luna"}
 
+@app.post("/login")
+def login(dato: Login):
+    if (dato.correo == 'MESTRADA@GMAIL.COM' and dato.contraseña == 'Mestrada20'):
+        return {
+            'status': 'success',
+            'message': 'Datos correctos!',
+            'data': {
+                'user_id': 2
+            }
+        }
+
+    return {
+        'status': 'Error',
+        'message': 'Usuario o contraseña incorrectos!'
+    }
 
 #CRUD users
 @app.get('/users/get_all_users')
@@ -61,9 +75,9 @@ async def create_users(users: Users):
 @app.put('/users/updt_users/{usuario_id}')
 async def create_users(users: Users, usuario_id: int):
     cursor = connection.cursor()
-    query = "UPDATE usuarios SET (nombres, apellidos, correo, contraseña, celular, fecha_md) VALUES (%s, %s, %s, %s, %s, fecha_md = current_timestamp) where usuario_id = %s"
+    query = "UPDATE usuarios SET rol_id = %s, documento_id = %s, cedula = %s, nombres = %s, apellidos = %s, correo = %s, contraseña = %s, celular = %s, fecha_md = current_timestamp where usuario_id = %s"
 
-    values = (users.nombres, users.apellidos, users.correo, users.contraseña, users.celular, usuario_id)
+    values = (users.rol_id, users.documento_id, users.cedula, users.nombres, users.apellidos, users.correo, users.contraseña, users.celular, usuario_id)
     try:
         cursor.execute(query, values)
         connection.commit()
